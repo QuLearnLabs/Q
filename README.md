@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="media/q-logo-large.png" alt="Q Extension Logo" width="500" height="145">
+  <img src="https://raw.githubusercontent.com/pas-mllr/Q/main/media/q-logo-large.png" alt="Q Extension Logo" width="500" height="145">
 
   # **Meet <span style="color:#FF6C00">Q</span>. Your quantum code companion** ⚛️
  
