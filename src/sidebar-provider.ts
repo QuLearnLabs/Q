@@ -41,7 +41,7 @@ export class QWelcomeViewProvider implements vscode.WebviewViewProvider {
           vscode.commands.executeCommand('workbench.action.chat.open', { query: '@Q What\'s a qubit, and why should I care—aside from flexing in tech interviews?' });
           break;
         case 'openQuLearnLabsWebsite':
-          vscode.env.openExternal(vscode.Uri.parse('https://www.qulearnlabs.com'));
+          vscode.env.openExternal(vscode.Uri.parse('https://github.com/pas-mllr/Q'));
           break;
       }
     });
@@ -378,7 +378,7 @@ export class QWelcomeViewProvider implements vscode.WebviewViewProvider {
           <div class="divider"></div>
           
           <div style="text-align: center; font-size: 12px; color: var(--vscode-descriptionForeground); margin-top: 8px;">
-            Powered by QuLearnLabs • Supported by EIT Deep Tech Talent
+            Powered by Q • Quantum Computing Made Simple
           </div>
         </div>
         

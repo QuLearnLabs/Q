@@ -5,9 +5,9 @@
  
   <br>
 
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License: MIT"></a>
+  <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="https://img.shields.io/badge/License-CC--BY--NC--ND%204.0-blue.svg?style=flat-square" alt="License: CC-BY-NC-ND 4.0"></a>
   <a href="https://marketplace.visualstudio.com/items?itemName=qulearnlabs.q"><img src="https://img.shields.io/badge/VS_Code-Marketplace-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white" alt="VS Code Marketplace"></a>
-  <a href="https://github.com/qulearnlabs/q-extension/releases"><img src="https://img.shields.io/badge/version-0.0.1-brightgreen?style=flat-square" alt="Version"></a>
+  <a href="https://github.com/pas-mllr/Q/releases"><img src="https://img.shields.io/badge/version-0.0.1-brightgreen?style=flat-square" alt="Version"></a>
   <a href="https://www.eitdigital.eu/our-initiatives/deep-tech-talent/"><img src="https://img.shields.io/badge/Supported_by-EIT_Deep_Tech_Talent-orange?style=flat-square" alt="EIT Deep Tech Talent"></a>
 </div>
 
@@ -126,8 +126,8 @@ Q/
 
 ### The Hacker Way (For the Curious)
 ```bash
-git clone https://github.com/qulearnlabs/q-extension.git
-cd q-extension
+git clone https://github.com/pas-mllr/Q.git
+cd Q
 npm install
 npm run vscode:prepublish
 code --install-extension q-0.0.1.vsix
@@ -184,7 +184,7 @@ code --install-extension q-0.0.1.vsix
 
 ### The Fine Print
 
-This project rocks the **MIT License**. Check the [LICENSE](LICENSE) file if you're into legal stuff.
+This project is licensed under the **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License**. Check the [LICENSE](LICENSE.md) file if you're into legal stuff.
 
 ## The People Behind Q
 
