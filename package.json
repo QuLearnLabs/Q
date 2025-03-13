@@ -1,0 +1,245 @@
+{
+  "name": "q",
+  "displayName": "Q, by QuLearnLabs",
+  "description": "AI code assistant for QuLearnLabs.",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qulearnlabs/q-extension.git"
+  },
+  "publisher": "QuLearnLabs",
+  "icon": "media/q-logo.png",
+  "galleryBanner": {
+    "color": "#1E1E1E",
+    "theme": "dark"
+  },
+  "homepage": "https://github.com/qulearnlabs/q-extension",
+  "bugs": {
+    "url": "https://github.com/qulearnlabs/q-extension/issues"
+  },
+  "keywords": [
+    "quantum",
+    "ai",
+    "education",
+    "qiskit"
+  ],
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages",
+    "Education",
+    "AI"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onChat",
+    "onLanguage:python",
+    "onLanguage:jupyter",
+    "onCommand:q.visualizeCircuit",
+    "onCommand:q.generateExercise",
+    "onCommand:q.explainConcept",
+    "onCommand:q.insertSnippet",
+    "onView:q-welcome",
+    "onView:q-quick-actions"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "q.explainConcept",
+        "title": "Explain Quantum Concept",
+        "category": "Q"
+      },
+      {
+        "command": "q.generateExercise",
+        "title": "Generate Quantum Coding Exercise",
+        "category": "Q"
+      },
+      {
+        "command": "q.insertSnippet",
+        "title": "Insert Quantum Code Snippet",
+        "category": "Q"
+      },
+      {
+        "command": "q.visualizeCircuit",
+        "title": "Visualize Quantum Circuit",
+        "category": "Q"
+      },
+      {
+        "command": "q.switchToWelcomeView",
+        "title": "Welcome",
+        "icon": "$(home)"
+      },
+      {
+        "command": "q.switchToQuickActionsView",
+        "title": "Quick Actions",
+        "icon": "$(rocket)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection && (editorLangId == 'python' || editorLangId == 'jupyter')",
+          "command": "q.visualizeCircuit",
+          "group": "1_modification"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "when": "resourceLangId == 'python' || resourceLangId == 'jupyter'",
+          "command": "q.visualizeCircuit",
+          "group": "1_modification"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "q.switchToWelcomeView",
+          "when": "view == q-welcome || view == q-quick-actions",
+          "group": "navigation@1"
+        },
+        {
+          "command": "q.switchToQuickActionsView",
+          "when": "view == q-welcome || view == q-quick-actions",
+          "group": "navigation@2"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "q.explainConcept",
+          "when": "true"
+        },
+        {
+          "command": "q.generateExercise",
+          "when": "true"
+        },
+        {
+          "command": "q.insertSnippet",
+          "when": "true"
+        },
+        {
+          "command": "q.visualizeCircuit",
+          "when": "editorLangId == 'python' || editorLangId == 'jupyter'"
+        },
+        {
+          "command": "q.switchToWelcomeView",
+          "when": "false"
+        },
+        {
+          "command": "q.switchToQuickActionsView",
+          "when": "false"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "q.visualizeCircuit",
+        "key": "ctrl+alt+q",
+        "mac": "cmd+alt+q",
+        "when": "editorHasSelection && (editorLangId == 'python' || editorLangId == 'jupyter')"
+      }
+    ],
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "q-circuit-viewer",
+          "title": "Quantum Circuit Viewer",
+          "icon": "media/q-logo.png"
+        }
+      ],
+      "activitybar": [
+        {
+          "id": "q-sidebar",
+          "title": "Q",
+          "icon": "media/q-logo.png"
+        }
+      ]
+    },
+    "views": {
+      "q-circuit-viewer": [
+        {
+          "id": "q-circuit-diagram",
+          "name": "Circuit Diagram",
+          "type": "webview"
+        }
+      ],
+      "q-sidebar": [
+        {
+          "id": "q-welcome",
+          "name": "Welcome",
+          "type": "webview",
+          "when": "q-sidebar-view == 'welcome'"
+        },
+        {
+          "id": "q-quick-actions",
+          "name": "Quick Actions",
+          "type": "webview",
+          "when": "q-sidebar-view == 'quick-actions'"
+        }
+      ]
+    },
+    "chatParticipants": [
+      {
+        "id": "q.main",
+        "fullName": "Q",
+        "name": "Q",
+        "description": "AI code companion for quantum computing. Made by QuLearnLabs.",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "exercise",
+            "description": "Provide exercises to practice a quantum computing concept."
+          },
+          {
+            "name": "snippet",
+            "description": "Generate relevant code snippets for quantum computing concepts."
+          },
+          {
+            "name": "explain",
+            "description": "Provide guided explanations about code or theory relevant to quantum computing."
+          }
+        ],
+        "disambiguation": [
+          {
+            "category": "quantum_computing",
+            "description": "The user wants to learn about quantum computing concepts, algorithms, or programming.",
+            "examples": [
+              "How do quantum computers work?",
+              "Explain quantum entanglement",
+              "What is a qubit?",
+              "How do I implement Shor's algorithm?",
+              "Teach me about quantum gates",
+              "What's the difference between quantum and classical computing?"
+            ]
+          },
+          {
+            "category": "post_quantum_cryptography",
+            "description": "The user wants to learn about post-quantum cryptography techniques and algorithms.",
+            "examples": [
+              "What is lattice-based cryptography?",
+              "How does post-quantum cryptography work?",
+              "Explain quantum-resistant encryption",
+              "What cryptographic algorithms are quantum-resistant?",
+              "How will quantum computers affect current encryption methods?"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "@types/node": "20.x",
+    "@types/vscode": "^1.98.0",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
+    "eslint": "^9.19.0",
+    "typescript": "^5.7.3"
+  }
+}

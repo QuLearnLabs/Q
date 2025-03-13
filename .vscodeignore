@@ -1,0 +1,18 @@
+# Source files
+src/**
+**/*.ts
+**/*.map
+
+# Config files
+.vscode/**
+.gitignore
+**/tsconfig.json
+**/eslint.config.mjs
+
+# Development artifacts
+.git/**
+node_modules/**
+**/*.tgz
+**/*.vsix
+.DS_Store
+*.log
