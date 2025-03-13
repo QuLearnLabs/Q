@@ -444,7 +444,28 @@ export class QQuickActionsProvider implements vscode.WebviewViewProvider {
     webviewView.webview.onDidReceiveMessage(data => {
       switch (data.type) {
         case 'generateExercise':
-          vscode.commands.executeCommand('workbench.action.chat.open', { query: '@Q /exercise Nice, got my first qubit spinning! Now, can you level me up with an exercise? Maybe show me how to put it into superposition and measure it—without breaking the quantum vibe?' });
+          // Check for dependencies first
+          this.checkQuantumDependencies().then(dependenciesInstalled => {
+            if (dependenciesInstalled) {
+              // Open exercise dialog
+              vscode.commands.executeCommand('workbench.action.chat.open', { query: '@Q /exercise Nice, got my first qubit spinning! Now, can you level me up with an exercise? Maybe show me how to put it into superposition and measure it—without breaking the quantum vibe?' });
+            } else {
+              // Show friendly popup about missing dependencies
+              const installAction = 'Install Dependencies';
+              vscode.window.showWarningMessage(
+                'Quantum exercises require Qiskit and Matplotlib to be installed. Would you like to install them now?',
+                installAction
+              ).then(selected => {
+                if (selected === installAction) {
+                  const terminal = vscode.window.createTerminal('Q Dependencies Installer');
+                  terminal.sendText('pip install qiskit matplotlib');
+                  terminal.show();
+                  // Show message after installation
+                  terminal.sendText('echo "After installation completes, try running your exercise again."');
+                }
+              });
+            }
+          });
           break;
         case 'visualizeCircuit':
           // Check for dependencies first
