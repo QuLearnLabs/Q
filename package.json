@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/qulearnlabs/q-extension.git"
+    "url": "https://github.com/pas-mllr/Q.git"
   },
   "publisher": "QuLearnLabs",
   "icon": "media/q-logo.png",
@@ -13,9 +13,9 @@
     "color": "#1E1E1E",
     "theme": "dark"
   },
-  "homepage": "https://github.com/qulearnlabs/q-extension",
+  "homepage": "https://github.com/pas-mllr/Q",
   "bugs": {
-    "url": "https://github.com/qulearnlabs/q-extension/issues"
+    "url": "https://github.com/pas-mllr/Q/issues"
   },
   "keywords": [
     "quantum",
