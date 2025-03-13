@@ -1,9 +1,4 @@
-<div align="center">
-  <img src="https://raw.githubusercontent.com/pas-mllr/Q/main/media/q-logo-large.png" alt="Q Extension Logo" width="500" height="145">
-
-  # **Meet <span style="color:#FF6C00">Q</span>. Your quantum code companion** ⚛️
- 
-  <br>
+<div 
 
   <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="https://img.shields.io/badge/License-CC--BY--NC--ND%204.0-blue.svg?style=flat-square" alt="License: CC-BY-NC-ND 4.0"></a>
   <a href="https://marketplace.visualstudio.com/items?itemName=qulearnlabs.q"><img src="https://img.shields.io/badge/VS_Code-Marketplace-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white" alt="VS Code Marketplace"></a>

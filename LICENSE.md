@@ -1,5 +1,7 @@
 # Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License
 
+Q, the AI coding assistant for quantum computing. © 2025 by QuLearnLabs is licensed under Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International. 
+
 **Copyright (c) 2025 QuLearnLabs Foundation**
 
 This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
