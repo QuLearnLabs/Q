@@ -5,9 +5,11 @@ const QUANTUM_FRAMEWORKS = {
   qiskit: {
     imports: [
       'from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister',
-      'from qiskit import Aer, execute',
+      'from qiskit_aer import Aer',
+      'from qiskit import transpile, execute',
       'from qiskit.visualization import plot_histogram, plot_bloch_multivector',
-      'from qiskit.quantum_info import Statevector'
+      'from qiskit.quantum_info import Statevector',
+      'from qiskit.primitives import Sampler'
     ],
     gates: [
       'circuit.h(${1:qubit})', 
@@ -16,40 +18,69 @@ const QUANTUM_FRAMEWORKS = {
       'circuit.z(${1:qubit})',
       'circuit.cx(${1:control_qubit}, ${2:target_qubit})',
       'circuit.ccx(${1:control1}, ${2:control2}, ${3:target})',
-      'circuit.measure(${1:qubit_register}, ${2:classical_register})'
+      'circuit.measure(${1:qubit_register}, ${2:classical_register})',
+      'circuit.barrier()'
     ],
     snippets: [
       {
-        label: 'qiskit-circuit',
-        detail: 'Create a basic Qiskit quantum circuit',
+        label: 'qiskit-circuit-aer',
+        detail: 'Create a Qiskit quantum circuit with Aer simulator (Qiskit 1.x)',
         insertText: new vscode.SnippetString(
+          '# Imports\n' +
+          'from qiskit import QuantumCircuit, transpile\n' +
+          'from qiskit_aer import Aer\n\n' +
           'qc = QuantumCircuit(${1:num_qubits}, ${2:num_bits})\n' +
           '# Apply quantum gates\n' +
           'qc.h(${3:0})\n' +
           '# Measure quantum circuit\n' +
           'qc.measure(${4:[0]}, ${5:[0]})\n\n' +
-          '# Execute the circuit\n' +
+          '# Execute the circuit with Aer\n' +
           'simulator = Aer.get_backend(\'${6:qasm_simulator}\')\n' +
-          'job = execute(qc, simulator, shots=${7:1000})\n' +
+          'compiled_circuit = transpile(qc, simulator)\n' +
+          'job = simulator.run(compiled_circuit, shots=${7:1000})\n' +
           'result = job.result()\n' +
-          'counts = result.get_counts(qc)\n' +
+          'counts = result.get_counts()\n' +
           'print(counts)'
         )
       },
       {
-        label: 'qiskit-bell',
-        detail: 'Create a Bell state with Qiskit',
+        label: 'qiskit-circuit-sampler',
+        detail: 'Create a Qiskit quantum circuit with Sampler primitive (Qiskit 1.x)',
         insertText: new vscode.SnippetString(
+          '# Imports\n' +
+          'from qiskit import QuantumCircuit\n' +
+          'from qiskit.primitives import Sampler\n\n' +
+          'qc = QuantumCircuit(${1:num_qubits}, ${2:num_bits})\n' +
+          '# Apply quantum gates\n' +
+          'qc.h(${3:0})\n' +
+          '# Measure quantum circuit\n' +
+          'qc.measure_all()\n\n' +
+          '# Execute using Sampler primitive (modern approach)\n' +
+          'sampler = Sampler()\n' +
+          'job = sampler.run(qc, shots=${4:1000})\n' +
+          'result = job.result()\n' +
+          'print(result)'
+        )
+      },
+      {
+        label: 'qiskit-bell',
+        detail: 'Create a Bell state with Qiskit (Qiskit 1.x)',
+        insertText: new vscode.SnippetString(
+          'from qiskit import QuantumCircuit, transpile\n' +
+          'from qiskit_aer import Aer\n' +
+          'from qiskit.visualization import plot_histogram\n\n' +
           'qc = QuantumCircuit(2, 2)\n' +
           '# Create Bell state (entanglement)\n' +
           'qc.h(0)\n' +
           'qc.cx(0, 1)\n' +
           '# Measure both qubits\n' +
           'qc.measure([0, 1], [0, 1])\n\n' +
+          '# Run on simulator\n' +
           'simulator = Aer.get_backend(\'qasm_simulator\')\n' +
-          'job = execute(qc, simulator, shots=${1:1000})\n' +
+          'compiled_circuit = transpile(qc, simulator)\n' +
+          'job = simulator.run(compiled_circuit, shots=${1:1000})\n' +
           'result = job.result()\n' +
-          'counts = result.get_counts(qc)\n' +
+          'counts = result.get_counts()\n' +
           'plot_histogram(counts)'
         )
       }

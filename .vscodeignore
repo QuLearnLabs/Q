@@ -4,7 +4,7 @@ src/**
 **/*.map
 
 # Config files
-.vscode/**
+.vscode-test/**
 .gitignore
 **/tsconfig.json
 **/eslint.config.mjs
@@ -16,3 +16,14 @@ node_modules/**
 **/*.vsix
 .DS_Store
 *.log
+
+# Virtual environment and test files
+.venv/**
+tmp-debug/**
+test_*.py
+
+# Explicitly include the Python fixer scripts
+!fix_qiskit.py
+!qiskit_watcher.py
+!requirements.txt
+!.vscode/tasks.json

@@ -2,7 +2,7 @@
 
   <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="https://img.shields.io/badge/License-CC--BY--NC--ND%204.0-blue.svg?style=flat-square" alt="License: CC-BY-NC-ND 4.0"></a>
   <a href="https://marketplace.visualstudio.com/items?itemName=qulearnlabs.q"><img src="https://img.shields.io/badge/VS_Code-Marketplace-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white" alt="VS Code Marketplace"></a>
-  <a href="https://github.com/pas-mllr/Q/releases"><img src="https://img.shields.io/badge/version-0.0.1-brightgreen?style=flat-square" alt="Version"></a>
+  <a href="https://github.com/pas-mllr/Q/releases"><img src="https://img.shields.io/badge/version-1.0.0-brightgreen?style=flat-square" alt="Version"></a>
   <a href="https://www.eitdigital.eu/our-initiatives/deep-tech-talent/"><img src="https://img.shields.io/badge/Supported_by-EIT_Deep_Tech_Talent-orange?style=flat-square" alt="EIT Deep Tech Talent"></a>
 </div>
 
@@ -99,11 +99,15 @@ Q uses **Qiskit** (IBM's quantum framework) as the default for all code examples
 ```
 Q/
 ├── media/                 # Visual assets and logos
+│   └── circuits/          # Generated quantum circuit images
 ├── src/                   # Core TypeScript source
 │   ├── extension.ts       # Main entry point
 │   ├── completions.ts     # Quantum code completion provider
-│   └── circuit-visualizer.ts # Quantum circuit visualization
-├── LICENSE.md             # MIT License
+│   ├── circuit-visualizer.ts # Quantum circuit visualization
+│   ├── qiskit-fixer.ts    # Qiskit 1.x compatibility fixer (TypeScript)
+│   ├── qiskit_tools.py    # Qiskit 1.x compatibility fixer (Python)
+│   └── sidebar-provider.ts # Welcome and Quick Actions sidebar
+├── LICENSE.md             # CC-BY-NC-ND 4.0 License
 ├── README.md              # Project documentation
 ├── package.json           # Dependencies and extension metadata
 ├── tsconfig.json          # TypeScript configuration
@@ -125,7 +129,8 @@ git clone https://github.com/pas-mllr/Q.git
 cd Q
 npm install
 npm run vscode:prepublish
-code --install-extension q-0.0.1.vsix
+# A new VSIX file will be generated with version 1.0.0
+code --install-extension releases/Q-by-QuLearnLabs-1.0.0.vsix
 ```
 
 ## How To Use Your New Quantum Friend 🤝
@@ -170,12 +175,49 @@ code --install-extension q-0.0.1.vsix
    ```
 
 4. **Visualize Quantum Circuits**  
-   - Ensure you have the required Python packages installed: `pip install qiskit matplotlib`
+   - Ensure you have the required Python packages installed: `pip install qiskit matplotlib pylatexenc` or `pip3 install qiskit matplotlib pylatexenc`
    - Write or paste Qiskit code in your editor
    - Select the code block
    - Right-click and choose "Visualize Quantum Circuit" (or press Ctrl+Alt+Q / Cmd+Alt+Q)
-   - See your quantum circuit diagram in a new panel
-   - Use the "Refresh" button to update after code changes
+   - The circuit image will be saved to the `media/circuits` folder
+   - A notification will appear with options to open the image or folder
+   - If visualization fails, check the error message - it will provide specific instructions to resolve dependency issues
+
+## Qiskit 1.x Compatibility 🔄
+
+Q automatically fixes your code to work with Qiskit 1.x! Two major changes in Qiskit 1.x are handled for you:
+
+```python
+# OLD → NEW
+from qiskit import Aer  →  from qiskit_aer import Aer
+execute(circuit, backend)  →  backend.run(transpile(circuit, backend))
+```
+
+### Auto-Fixer: One-Click Solution
+
+Right-click any Python file and select **"Fix Qiskit Code for 1.x Compatibility"** to instantly update your code.
+
+### Setup & Options
+
+**Setup:** Run once to install dependencies
+```bash
+python3 src/qiskit_tools.py --setup
+```
+
+**VS Code Tasks:** Access from Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`) → "Tasks: Run Task"
+- **Fix Current File** - Update open file only
+- **Run Watcher Once** - Scan all files once
+- **Start Watcher** - Continuously fix files as you edit 
+- **Clipboard Monitor** - Fix code when copied
+
+**Terminal Usage:**
+```bash
+python3 src/qiskit_tools.py -f file.py  # Fix specific file
+python3 src/qiskit_tools.py --watch      # Monitor clipboard
+python3 src/qiskit_tools.py --watcher    # Watch all files
+```
+
+The fixer safely handles Aer imports, execute() calls, and adds any missing imports - all automatically!
 
 ### The Fine Print
 
@@ -200,13 +242,6 @@ QuLearnLabs is helping Europe level up in the global tech game - especially in q
 
 - **Backed By**: The awesome [EIT Deep Tech Talent initiative](https://www.eitdigital.eu/our-initiatives/deep-tech-talent/).
 
-<br>
-
-**Need Human Help?**
-
-- **Course Questions**: [education@quLearnLabs.com](mailto:education@quLearnLabs.com)  
-- **Q Being Weird?**: [q-support@quLearnLabs.com](mailto:q-support@quLearnLabs.com)
-
 ##
- © 2025 QuLearnLabs Foundation • <a href="CHANGELOG.md">Version 0.0.1</a> • Made with ⚛️ + ❤️
+ © 2025 QuLearnLabs Foundation • <a href="CHANGELOG.md">Version 1.0.0</a> • Made with ⚛️ + ❤️
 </div>

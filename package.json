@@ -1,13 +1,13 @@
 {
-  "name": "q",
+  "name": "Q-by-QuLearnLabs",
   "displayName": "Q, by QuLearnLabs",
   "description": "AI code assistant for QuLearnLabs.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/pas-mllr/Q.git"
   },
-  "publisher": "QuLearnLabs",
+  "publisher": "LurnDigital",
   "icon": "media/q-logo.png",
   "galleryBanner": {
     "color": "#1E1E1E",
@@ -39,8 +39,10 @@
     "onLanguage:jupyter",
     "onCommand:q.visualizeCircuit",
     "onCommand:q.generateExercise",
-    "onCommand:q.explainConcept",
+    "onCommand:q.explainConcept", 
     "onCommand:q.insertSnippet",
+    "onCommand:q.fixQiskitCode",
+    "onCommand:q.fixQiskitClipboard",
     "onView:q-welcome",
     "onView:q-quick-actions"
   ],
@@ -68,6 +70,16 @@
         "category": "Q"
       },
       {
+        "command": "q.fixQiskitCode",
+        "title": "Fix Qiskit Code for 1.x Compatibility",
+        "category": "Q"
+      },
+      {
+        "command": "q.fixQiskitClipboard",
+        "title": "Fix Qiskit Code in Clipboard for 1.x Compatibility",
+        "category": "Q"
+      },
+      {
         "command": "q.switchToWelcomeView",
         "title": "Welcome",
         "icon": "$(home)"
@@ -84,12 +96,22 @@
           "when": "editorHasSelection && (editorLangId == 'python' || editorLangId == 'jupyter')",
           "command": "q.visualizeCircuit",
           "group": "1_modification"
+        },
+        {
+          "when": "editorLangId == 'python'",
+          "command": "q.fixQiskitCode",
+          "group": "1_modification"
         }
       ],
       "editor/title/context": [
         {
           "when": "resourceLangId == 'python' || resourceLangId == 'jupyter'",
           "command": "q.visualizeCircuit",
+          "group": "1_modification"
+        },
+        {
+          "when": "resourceLangId == 'python'",
+          "command": "q.fixQiskitCode",
           "group": "1_modification"
         }
       ],
@@ -123,6 +145,14 @@
           "when": "editorLangId == 'python' || editorLangId == 'jupyter'"
         },
         {
+          "command": "q.fixQiskitCode",
+          "when": "editorLangId == 'python'"
+        },
+        {
+          "command": "q.fixQiskitClipboard",
+          "when": "true"
+        },
+        {
           "command": "q.switchToWelcomeView",
           "when": "false"
         },
@@ -138,16 +168,15 @@
         "key": "ctrl+alt+q",
         "mac": "cmd+alt+q",
         "when": "editorHasSelection && (editorLangId == 'python' || editorLangId == 'jupyter')"
+      },
+      {
+        "command": "q.fixQiskitCode",
+        "key": "ctrl+alt+f",
+        "mac": "cmd+alt+f",
+        "when": "editorLangId == 'python'"
       }
     ],
     "viewsContainers": {
-      "panel": [
-        {
-          "id": "q-circuit-viewer",
-          "title": "Quantum Circuit Viewer",
-          "icon": "media/q-logo.png"
-        }
-      ],
       "activitybar": [
         {
           "id": "q-sidebar",
@@ -157,13 +186,6 @@
       ]
     },
     "views": {
-      "q-circuit-viewer": [
-        {
-          "id": "q-circuit-diagram",
-          "name": "Circuit Diagram",
-          "type": "webview"
-        }
-      ],
       "q-sidebar": [
         {
           "id": "q-welcome",
@@ -232,7 +254,8 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "postinstall": "python3 -m pip install -r requirements.txt || echo 'Python dependencies not installed. Qiskit functionality may be limited.'"
   },
   "devDependencies": {
     "@types/node": "20.x",

@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import { registerQuantumCompletions } from './completions';
 import { QuantumCircuitVisualizer } from './circuit-visualizer';
 import { QWelcomeViewProvider, QQuickActionsProvider } from './sidebar-provider';
+import { registerQiskitFixer } from './qiskit-fixer';
 
 const BASE_PROMPT =
 	`You are Q, a cutting-edge AI coding assistant with deep expertise in quantum computing and post-quantum cryptography. You're the digital sidekick for quantum computing learners - part coding guru, part quantum enthusiast, and always ready with the perfect explanation or snippet.
@@ -379,6 +380,9 @@ export function activate(context: vscode.ExtensionContext) {
   // Initialize the quantum circuit visualizer
   const circuitVisualizer = new QuantumCircuitVisualizer(context);
   circuitVisualizer.registerCommand();
+  
+  // Register the Qiskit Fixer for automatic compatibility
+  registerQiskitFixer(context);
   
   // Register the sidebar providers
   const welcomeProvider = new QWelcomeViewProvider(context.extensionUri);

@@ -540,8 +540,14 @@ export class QQuickActionsProvider implements vscode.WebviewViewProvider {
    * Visualize an example quantum circuit
    */
   private async visualizeExampleCircuit() {
-    // Example quantum circuit code - Bell state creation
-    const exampleCode = `
+    // Show information message instead of using the webview
+    vscode.window.showInformationMessage(
+      'To visualize a quantum circuit, open a Python file containing a Qiskit circuit, select the code, right-click and select "Visualize Quantum Circuit". The image will be saved to media/circuits folder.',
+      'Create Example Circuit'
+    ).then(async selection => {
+      if (selection === 'Create Example Circuit') {
+        // Create an example Python file with a Bell state circuit
+        const exampleCode = `
 from qiskit import QuantumCircuit
 
 # Create a Bell state circuit (entangled qubits)
@@ -551,35 +557,61 @@ qc.cx(0, 1)  # CNOT gate to entangle qubits 0 and 1
 qc.measure_all()  # Measure both qubits
 `;
 
-    try {
-      // Create a temporary file with our example code
-      const os = require('os');
-      const path = require('path');
-      const fs = require('fs');
-      
-      const tempDir = path.join(os.tmpdir(), 'q-temp');
-      if (!fs.existsSync(tempDir)) {
-        fs.mkdirSync(tempDir, { recursive: true });
+        try {
+          const path = require('path');
+          const fs = require('fs');
+          
+          // Get the workspace folder path or prompt the user to select a folder
+          let targetDir: string | undefined;
+          if (vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
+            // Use the first workspace folder if available
+            targetDir = vscode.workspace.workspaceFolders[0].uri.fsPath;
+          } else {
+            // If no workspace is open, ask the user to select a folder
+            const folderUri = await vscode.window.showOpenDialog({
+              canSelectFiles: false,
+              canSelectFolders: true,
+              canSelectMany: false,
+              openLabel: 'Select Folder'
+            });
+            
+            if (folderUri && folderUri.length > 0) {
+              targetDir = folderUri[0].fsPath;
+            } else {
+              // User cancelled folder selection
+              return;
+            }
+          }
+          
+          // Create the file in the selected directory
+          const filePath = path.join(targetDir, 'example_circuit.py');
+          
+          // Check if file already exists
+          if (fs.existsSync(filePath)) {
+            const overwrite = await vscode.window.showWarningMessage(
+              'example_circuit.py already exists in this directory. Overwrite?',
+              'Yes', 'No'
+            );
+            if (overwrite !== 'Yes') {
+              return;
+            }
+          }
+          
+          fs.writeFileSync(filePath, exampleCode, 'utf8');
+          
+          // Open the file in VS Code
+          const doc = await vscode.workspace.openTextDocument(filePath);
+          await vscode.window.showTextDocument(doc);
+          
+          // Show another information message with instructions
+          vscode.window.showInformationMessage(
+            'Select all the code (Ctrl+A/Cmd+A), right-click, and select "Visualize Quantum Circuit"'
+          );
+        } catch (error) {
+          vscode.window.showErrorMessage('Error creating example circuit: ' + (error instanceof Error ? error.message : String(error)));
+        }
       }
-      
-      const tempFilePath = path.join(tempDir, 'example_circuit.py');
-      fs.writeFileSync(tempFilePath, exampleCode, 'utf8');
-      
-      // Open the file in VS Code
-      const doc = await vscode.workspace.openTextDocument(tempFilePath);
-      const editor = await vscode.window.showTextDocument(doc);
-      
-      // Select all text
-      const lastLine = doc.lineCount - 1;
-      const lastChar = doc.lineAt(lastLine).text.length;
-      editor.selection = new vscode.Selection(0, 0, lastLine, lastChar);
-      
-      // Execute the circuit visualization command
-      await vscode.commands.executeCommand('q.visualizeCircuit');
-      
-    } catch (error) {
-      vscode.window.showErrorMessage('Error visualizing circuit: ' + (error instanceof Error ? error.message : String(error)));
-    }
+    });
   }
 
   private _getHtmlForWebview(webview: vscode.Webview) {

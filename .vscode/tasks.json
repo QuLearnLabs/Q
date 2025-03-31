@@ -1,20 +1,128 @@
-// See https://go.microsoft.com/fwlink/?LinkId=733558
-// for the documentation about the tasks.json format
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "npm",
-			"script": "watch",
-			"problemMatcher": "$tsc-watch",
-			"isBackground": true,
-			"presentation": {
-				"reveal": "never"
-			},
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Qiskit Compatibility Watcher",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "${workspaceFolder}/src/qiskit_tools.py",
+                "--watcher",
+                "--quiet"
+            ],
+            "isBackground": true,
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "close": true
+            },
+            "problemMatcher": [],
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Run Qiskit Watcher Once",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "${workspaceFolder}/src/qiskit_tools.py",
+                "--once"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Run Qiskit Watcher Once (Force)",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "${workspaceFolder}/src/qiskit_tools.py",
+                "--once",
+                "--force"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Fix Current Qiskit File",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "${workspaceFolder}/src/qiskit_tools.py",
+                "-f",
+                "${file}"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Start Qiskit Clipboard Monitor",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "${workspaceFolder}/src/qiskit_tools.py",
+                "--watch"
+            ],
+            "isBackground": true,
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Setup Qiskit Tools",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "${workspaceFolder}/src/qiskit_tools.py",
+                "--setup"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        }
+    ]
 }
