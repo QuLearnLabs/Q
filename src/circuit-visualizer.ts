@@ -537,22 +537,57 @@ except Exception as e:
             const stats = fs.statSync(outputPath);
             console.log(`Circuit image created: ${outputPath} (${stats.size} bytes)`);
             
-            // Show success message with options
-            vscode.window.showInformationMessage(
-              `Circuit image saved to: ${outputPath}`,
-              'Open Image',
-              'Open Folder'
-            ).then(selection => {
-              if (selection === 'Open Image') {
-                // Open the image with the default app
-                const openCommand = require('os').platform() === 'win32' ? 'explorer' : 'open';
-                childProcess.spawn(openCommand, [outputPath]);
-              } else if (selection === 'Open Folder') {
-                // Open the containing folder
-                const openCommand = require('os').platform() === 'win32' ? 'explorer' : 'open';
-                childProcess.spawn(openCommand, [outputDir]);
+            // Copy the generated image to the media/circuits directory
+            const circuitsDirPath = path.join(this.context.extensionPath, 'media', 'circuits');
+            const circuitsFileName = path.basename(outputPath);
+            const circuitsFilePath = path.join(circuitsDirPath, circuitsFileName);
+            
+            try {
+              // Ensure media/circuits directory exists
+              if (!fs.existsSync(circuitsDirPath)) {
+                fs.mkdirSync(circuitsDirPath, { recursive: true });
+                console.log(`Created circuits directory: ${circuitsDirPath}`);
               }
-            });
+              
+              // Copy the file
+              fs.copyFileSync(outputPath, circuitsFilePath);
+              console.log(`Copied circuit image to media/circuits: ${circuitsFilePath}`);
+              
+              // Show success message with options
+              vscode.window.showInformationMessage(
+                `Circuit image saved to: ${circuitsFilePath}`,
+                'Open Image',
+                'Open Folder'
+              ).then(selection => {
+                if (selection === 'Open Image') {
+                  // Open the image with the default app
+                  const openCommand = require('os').platform() === 'win32' ? 'explorer' : 'open';
+                  childProcess.spawn(openCommand, [circuitsFilePath]);
+                } else if (selection === 'Open Folder') {
+                  // Open the containing folder
+                  const openCommand = require('os').platform() === 'win32' ? 'explorer' : 'open';
+                  childProcess.spawn(openCommand, [circuitsDirPath]);
+                }
+              });
+            } catch (copyError) {
+              console.error(`Failed to copy image to media/circuits: ${copyError}`);
+              // Still show success for original file if copy fails
+              vscode.window.showInformationMessage(
+                `Circuit image saved to: ${outputPath}`,
+                'Open Image',
+                'Open Folder'
+              ).then(selection => {
+                if (selection === 'Open Image') {
+                  // Open the image with the default app
+                  const openCommand = require('os').platform() === 'win32' ? 'explorer' : 'open';
+                  childProcess.spawn(openCommand, [outputPath]);
+                } else if (selection === 'Open Folder') {
+                  // Open the containing folder
+                  const openCommand = require('os').platform() === 'win32' ? 'explorer' : 'open';
+                  childProcess.spawn(openCommand, [outputDir]);
+                }
+              });
+            }
           } else {
             throw new Error(`Output file not created at ${outputPath}`);
           }

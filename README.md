@@ -115,6 +115,33 @@ Q/
 ```
 
 
+## Prerequisites ✅
+
+Before installing Q, make sure you have the following:
+
+- **VS Code**: Version 1.98.0 or newer [Download](https://code.visualstudio.com/download)
+
+- **GitHub Copilot & Chat**: Q requires both extensions
+  - [GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) with one of these plans:
+    - **Free**: Available for verified students, teachers, and open source maintainers (limited to 50 chat completions/month)
+    - **Pro**: $10/month or $100/year with 30-day free trial (unlimited usage)
+  - [GitHub Copilot Chat](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat) (included with your subscription)
+  - **Note**: Q will work with the Free plan but is limited by the 50 chat completions per month
+
+- **Python**: Version 3.8 or newer [Download](https://www.python.org/downloads/)
+  - Required for circuit visualization and Qiskit compatibility features
+
+### Python Setup
+
+Install the required Python packages with:
+
+```bash
+# Install all required packages
+pip install qiskit qiskit-aer matplotlib pylatexenc pyperclip
+```
+
+On macOS/Linux, you might need to use `python3 -m pip` instead of `pip`.
+
 ## Get Q In Your VS Code 🚀
 
 ### The Easy Way (Recommended)
@@ -122,6 +149,7 @@ Q/
 2. Hit the **Extensions** button in the sidebar  
 3. Type **"Q Quantum"** in the search bar  
 4. Smash that **Install** button
+5. Make sure GitHub Copilot Chat is installed and authenticated
 
 ### The Hacker Way (For the Curious)
 ```bash
@@ -132,6 +160,11 @@ npm run vscode:prepublish
 # A new VSIX file will be generated with version 1.0.0
 code --install-extension releases/Q-by-QuLearnLabs-1.0.0.vsix
 ```
+
+### Post-Installation
+1. Restart VS Code to activate the extension
+2. The first time you use a feature that requires Python, Q will check if all dependencies are installed
+3. If any dependencies are missing, follow the prompts to install them
 
 ## How To Use Your New Quantum Friend 🤝
 
@@ -193,13 +226,30 @@ from qiskit import Aer  →  from qiskit_aer import Aer
 execute(circuit, backend)  →  backend.run(transpile(circuit, backend))
 ```
 
-### Auto-Fixer: One-Click Solution
+### How It Works In Simple Terms
 
-Right-click any Python file and select **"Fix Qiskit Code for 1.x Compatibility"** to instantly update your code.
+The Qiskit compatibility checker works in three main ways:
+
+1. **Right-click to Fix Code**: Select a code block or open a Python file, right-click, and select **"Fix Qiskit Code for 1.x Compatibility"** to instantly update your code. This works even on files that aren't saved yet!
+
+2. **Background Watcher**: When enabled, this silently monitors your Python files. When you save a file containing old Qiskit code, it automatically updates the code to be compatible with Qiskit 1.x. You'll see a notification when a file is fixed.
+
+3. **Clipboard Monitor**: When enabled, this watches your clipboard. If you copy old Qiskit code from somewhere (like a tutorial or Q chat), it automatically updates the code in your clipboard. This requires the `pyperclip` Python package.
+
+**Note about Q chat's code snippets**: When using Q chat to generate Qiskit code snippets, it may give you older code that's not compatible with Qiskit 1.x. Here's how to handle it:
+
+- If you have clipboard monitoring set up (with `pyperclip` installed), copying the code will automatically fix it.
+- If not, paste the code into a file in VS Code and save it. If the background watcher is running, it will automatically fix the code.
+- Alternatively, after pasting the code, right-click and select **"Fix Qiskit Code for 1.x Compatibility"**.
 
 ### Setup & Options
 
-**Setup:** Run once to install dependencies
+**Dependencies:** First, make sure you have the required packages:
+```bash
+pip install qiskit qiskit-aer pyperclip  # For full functionality including clipboard monitoring
+```
+
+**Setup:** Run once to install tasks and configure
 ```bash
 python3 src/qiskit_tools.py --setup
 ```
@@ -207,8 +257,8 @@ python3 src/qiskit_tools.py --setup
 **VS Code Tasks:** Access from Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`) → "Tasks: Run Task"
 - **Fix Current File** - Update open file only
 - **Run Watcher Once** - Scan all files once
-- **Start Watcher** - Continuously fix files as you edit 
-- **Clipboard Monitor** - Fix code when copied
+- **Start Watcher** - Continuously fix files as you edit and save
+- **Clipboard Monitor** - Fix code when copied (requires `pyperclip`)
 
 **Terminal Usage:**
 ```bash
