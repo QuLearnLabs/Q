@@ -2,7 +2,7 @@
   "name": "Q-by-QuLearnLabs",
   "displayName": "Q, by QuLearnLabs",
   "description": "AI code assistant for QuLearnLabs.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/pas-mllr/Q.git"
