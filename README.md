@@ -147,7 +147,7 @@ On macOS/Linux, you might need to use `python3 -m pip` instead of `pip`.
 ### The Easy Way (Recommended)
 1. **Fire up VS Code**  
 2. Hit the **Extensions** button in the sidebar  
-3. Type **"Q Quantum"** in the search bar  
+3. Type **"QuLearnLabs"** in the search bar  
 4. Smash that **Install** button
 5. Make sure GitHub Copilot Chat is installed and authenticated
 
@@ -226,7 +226,7 @@ from qiskit import Aer  →  from qiskit_aer import Aer
 execute(circuit, backend)  →  backend.run(transpile(circuit, backend))
 ```
 
-### How It Works In Simple Terms
+### How It Works
 
 The Qiskit compatibility checker works in three main ways:
 
