@@ -2,7 +2,7 @@
 
   <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="https://img.shields.io/badge/License-CC--BY--NC--ND%204.0-blue.svg?style=flat-square" alt="License: CC-BY-NC-ND 4.0"></a>
   <a href="https://marketplace.visualstudio.com/items?itemName=qulearnlabs.q"><img src="https://img.shields.io/badge/VS_Code-Marketplace-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white" alt="VS Code Marketplace"></a>
-  <a href="https://github.com/pas-mllr/Q/releases"><img src="https://img.shields.io/badge/version-1.0.0-brightgreen?style=flat-square" alt="Version"></a>
+  <a href="https://github.com/QuLearnLabs/Q/releases"><img src="https://img.shields.io/badge/version-1.0.2-brightgreen?style=flat-square" alt="Version"></a>
   <a href="https://www.eitdigital.eu/our-initiatives/deep-tech-talent/"><img src="https://img.shields.io/badge/Supported_by-EIT_Deep_Tech_Talent-orange?style=flat-square" alt="EIT Deep Tech Talent"></a>
 </div>
 
@@ -153,12 +153,12 @@ On macOS/Linux, you might need to use `python3 -m pip` instead of `pip`.
 
 ### The Hacker Way (For the Curious)
 ```bash
-git clone https://github.com/pas-mllr/Q.git
+git clone https://github.com/QuLearnLabs/Q.git
 cd Q
 npm install
 npm run vscode:prepublish
-# A new VSIX file will be generated with version 1.0.0
-code --install-extension releases/Q-by-QuLearnLabs-1.0.0.vsix
+# A new VSIX file will be generated with version 1.0.2
+code --install-extension releases/Q-by-QuLearnLabs-1.0.2.vsix
 ```
 
 ### Post-Installation
@@ -293,5 +293,5 @@ QuLearnLabs is helping Europe level up in the global tech game - especially in q
 - **Backed By**: The awesome [EIT Deep Tech Talent initiative](https://www.eitdigital.eu/our-initiatives/deep-tech-talent/).
 
 ##
- © 2025 QuLearnLabs Foundation • <a href="CHANGELOG.md">Version 1.0.0</a> • Made with ⚛️ + ❤️
+ © 2025 QuLearnLabs Foundation • <a href="https://marketplace.visualstudio.com/items?itemName=LurnDigital.Q-by-QuLearnLabs">Version 1.0.2</a> • Made with ⚛️ + ❤️
 </div>

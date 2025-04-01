@@ -2,10 +2,10 @@
   "name": "Q-by-QuLearnLabs",
   "displayName": "Q, by QuLearnLabs",
   "description": "AI code assistant for QuLearnLabs.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pas-mllr/Q.git"
+    "url": "https://github.com/QuLearnLabs/Q.git"
   },
   "publisher": "LurnDigital",
   "icon": "media/q-logo.png",
@@ -13,9 +13,9 @@
     "color": "#1E1E1E",
     "theme": "dark"
   },
-  "homepage": "https://github.com/pas-mllr/Q",
+  "homepage": "https://github.com/QuLearnLabs/Q",
   "bugs": {
-    "url": "https://github.com/pas-mllr/Q/issues"
+    "url": "https://github.com/QuLearnLabs/Q/issues"
   },
   "keywords": [
     "quantum",
